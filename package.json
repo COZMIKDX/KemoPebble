@@ -22,6 +22,11 @@
     "resources": {
       "media": [
         {
+          "type": "raw",
+          "name": "LEO",
+          "file": "flat_leo_gif.png"
+        },
+        {
           "type": "bitmap",
           "name": "FOX_IDLE",
           "file": "fox_idle.png"

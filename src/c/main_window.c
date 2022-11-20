@@ -14,6 +14,8 @@ static GBitmap * idle_bitmap;
 static BitmapLayer *idle_bitmap_layer;
 
 static const uint32_t RESOURCES [4] = {RESOURCE_ID_FOX_IDLE, RESOURCE_ID_SHEEP_IDLE, RESOURCE_ID_WOLF_IDLE, RESOURCE_ID_BUNNY_IDLE};
+
+// currently experimenting
 static uint32_t current_animal = 0;
 static uint32_t starttime = 0;
 static uint32_t currentsec = 0;
@@ -59,7 +61,7 @@ static void tick_handler(struct tm *tick_time, TimeUnits unit_changed) {
     update_time();
     // Do other things.
     // run animation.
-    update_animal();
+    //update_animal();
 }
 
 static void timer_handler(void *context) {
@@ -78,8 +80,7 @@ static void timer_handler(void *context) {
 }
 
 static void window_load(Window *window) {
-    // Boiler plate
-    // window info. I'll use this for both the canvas and text.
+    // window info.
     Layer *window_layer = window_get_root_layer(window);
     GRect window_bounds = layer_get_bounds(window_layer); // This canvas will cover the whole window
 
@@ -87,7 +88,6 @@ static void window_load(Window *window) {
     // canvas = layer_create(window_bounds);
     // layer_set_update_proc(canvas, canvas_update_proc);
     // layer_add_child(window_layer, canvas);
-    // end boiler plate
 
     /*bitmap_layer = bitmap_layer_create(window_bounds);
     layer_add_child(window_layer, bitmap_layer_get_layer(bitmap_layer));
