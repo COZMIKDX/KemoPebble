@@ -23,8 +23,8 @@
       "media": [
         {
           "type": "raw",
-          "name": "WOLF",
-          "file": "apngs/wolf_small.png"
+          "name": "FOX",
+          "file": "apngs/fox.png"
         },
         {
           "type": "bitmap",
