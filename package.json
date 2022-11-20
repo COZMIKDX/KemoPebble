@@ -1,0 +1,32 @@
+{
+  "name": "fluff",
+  "author": "CosmicTacoCat",
+  "version": "1.0.0",
+  "keywords": ["pebble-app"],
+  "private": true,
+  "dependencies": {},
+  "pebble": {
+    "displayName": "fluff",
+    "uuid": "9d20dea8-ec41-496f-a0c0-c75fc2902ec7",
+    "sdkVersion": "3",
+    "enableMultiJS": true,
+    "targetPlatforms": [
+      "basalt"
+    ],
+    "watchapp": {
+      "watchface": true
+    },
+    "messageKeys": [
+      "dummy"
+    ],
+    "resources": {
+      "media": [
+        {
+          "type": "raw",
+          "name": "FOX",
+          "file": "fox_idle.png"
+        }
+      ]
+    }
+  }
+}
