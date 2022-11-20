@@ -23,23 +23,10 @@
       "media": [
         {
           "type": "raw",
-          "name": "LEO",
-          "file": "flat_leo_gif.png"
+          "name": "WOLF",
+          "file": "apngs/wolf_small.png"
         },
         {
-          "type": "bitmap",
-          "name": "FOX_IDLE",
-          "file": "fox_idle.png"
-        },
-        {
-          "type": "bitmap",
-          "name": "SHEEP_IDLE",
-          "file": "sheep_idle.png"
-        },{
-          "type": "bitmap",
-          "name": "WOLF_IDLE",
-          "file": "wolf_idle.png"
-        },{
           "type": "bitmap",
           "name": "BUNNY_IDLE",
           "file": "bunny_idle.png"

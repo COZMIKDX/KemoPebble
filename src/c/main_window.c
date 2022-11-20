@@ -13,7 +13,7 @@ static GBitmapSequence *fox_sequence = NULL;
 static GBitmap * idle_bitmap;
 static BitmapLayer *idle_bitmap_layer;
 
-static const uint32_t RESOURCES [4] = {RESOURCE_ID_FOX_IDLE, RESOURCE_ID_SHEEP_IDLE, RESOURCE_ID_WOLF_IDLE, RESOURCE_ID_BUNNY_IDLE};
+//static const uint32_t RESOURCES [4] = {RESOURCE_ID_FOX_IDLE, RESOURCE_ID_SHEEP_IDLE, RESOURCE_ID_WOLF_IDLE, RESOURCE_ID_BUNNY_IDLE};
 
 // currently experimenting
 static uint32_t current_animal = 0;
@@ -44,7 +44,7 @@ static void update_time() {
     text_layer_set_text(minute_layer, minute_buffer);
 }
 
-static void update_animal() {
+/*static void update_animal() {
     if (idle_bitmap && (finishedstart || (currentsec - starttime > 30))) {
         gbitmap_destroy(idle_bitmap);
         idle_bitmap = NULL;
@@ -55,7 +55,7 @@ static void update_animal() {
     }
     
     
-}
+}*/
 
 static void tick_handler(struct tm *tick_time, TimeUnits unit_changed) {
     update_time();
@@ -89,21 +89,14 @@ static void window_load(Window *window) {
     // layer_set_update_proc(canvas, canvas_update_proc);
     // layer_add_child(window_layer, canvas);
 
-    /*bitmap_layer = bitmap_layer_create(window_bounds);
+    bitmap_layer = bitmap_layer_create(window_bounds);
     layer_add_child(window_layer, bitmap_layer_get_layer(bitmap_layer));
 
-    fox_sequence = gbitmap_sequence_create_with_resource(RESOURCE_ID_FOX);
+    fox_sequence = gbitmap_sequence_create_with_resource(RESOURCE_ID_WOLF);
     GSize fox_frame_size = gbitmap_sequence_get_bitmap_size(fox_sequence);
 
     fox_bitmap = gbitmap_create_blank(fox_frame_size, GBitmapFormat8Bit);
-    app_timer_register(1, timer_handler, NULL);*/
-
-    idle_bitmap = gbitmap_create_with_resource(RESOURCE_ID_FOX_IDLE);
-    GRect idle_bounds = layer_get_bounds(window_layer);
-    idle_bitmap_layer = bitmap_layer_create(idle_bounds);
-    bitmap_layer_set_compositing_mode(idle_bitmap_layer, GCompOpSet);
-    bitmap_layer_set_bitmap(idle_bitmap_layer, idle_bitmap);
-    layer_add_child(window_layer, bitmap_layer_get_layer(idle_bitmap_layer));
+    app_timer_register(1, timer_handler, NULL);
 
     hour_layer = text_layer_create(GRect(0, 20, window_bounds.size.w/2, 50));
     text_layer_set_background_color(hour_layer, GColorClear);
