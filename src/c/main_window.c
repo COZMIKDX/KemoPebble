@@ -10,12 +10,14 @@ static GBitmap *anim_bitmap = NULL;
 static BitmapLayer *anim_bitmap_layer;
 static GBitmapSequence *anim_sequence = NULL;
 
-static GBitmap * idle_bitmap;
-static BitmapLayer *idle_bitmap_layer;
+// static GBitmap * idle_bitmap;
+// static BitmapLayer *idle_bitmap_layer;
 
-static const uint32_t IDLE_RESOURCES [4] = {RESOURCE_ID_FOX_IDLE, RESOURCE_ID_SHEEP_IDLE, RESOURCE_ID_WOLF_IDLE, RESOURCE_ID_BUNNY_IDLE};
+// static const uint32_t IDLE_RESOURCES [4] = {RESOURCE_ID_FOX_IDLE, RESOURCE_ID_SHEEP_IDLE, RESOURCE_ID_WOLF_IDLE, RESOURCE_ID_BUNNY_IDLE};
 static const uint32_t RESOURCES[4] = {RESOURCE_ID_FOX, RESOURCE_ID_SHEEP, RESOURCE_ID_WOLF, RESOURCE_ID_BUNNY};
 static uint32_t current_animal = 0;
+
+static uint32_t tickcount = 0;
 
 // currently experimenting
 static bool finishedstart = false;
@@ -59,6 +61,10 @@ static void tick_handler(struct tm *tick_time, TimeUnits unit_changed) {
     // Do other things.
     // run animation.
     //update_animal();
+    /*tickcount = tickcount + 1;
+    if (tickcount >=2) {
+        load_sequence();
+    }*/
 }
 
 static void timer_handler(void *context)
@@ -75,12 +81,19 @@ static void timer_handler(void *context)
         // Timer for that frame's delay
         app_timer_register(next_delay, timer_handler, NULL);
     }
-    else
+    else // do something if the apng is done.
     {
         // Start again
         current_animal = current_animal + 1;
         current_animal = current_animal % 4;
         load_sequence();
+        /*if (tickcount >= 2)
+        {
+            gbitmap_sequence_destroy(anim_sequence);
+            anim_sequence = NULL;
+            gbitmap_destroy(anim_bitmap);
+            anim_bitmap = NULL;
+        }*/
     }
 }
 
@@ -98,13 +111,13 @@ static void load_sequence()
         anim_bitmap = NULL;
     }
 
-    if (idle_bitmap) {
+    /*if (idle_bitmap) {
         gbitmap_destroy(idle_bitmap);
         idle_bitmap = NULL;
-    }
+    }*/
 
-    idle_bitmap = gbitmap_create_with_resource(IDLE_RESOURCES[current_animal]);
-    bitmap_layer_set_bitmap(idle_bitmap_layer, idle_bitmap);
+    /*idle_bitmap = gbitmap_create_with_resource(IDLE_RESOURCES[current_animal]);
+    bitmap_layer_set_bitmap(idle_bitmap_layer, idle_bitmap);*/
 
     anim_sequence = gbitmap_sequence_create_with_resource(RESOURCES[current_animal]);
     GSize anim_frame_size = gbitmap_sequence_get_bitmap_size(anim_sequence);
@@ -123,10 +136,10 @@ static void window_load(Window *window) {
     // layer_set_update_proc(canvas, canvas_update_proc);
     // layer_add_child(window_layer, canvas);
 
-    idle_bitmap_layer = bitmap_layer_create(layer_get_bounds(window_get_root_layer(window)));
+    /*idle_bitmap_layer = bitmap_layer_create(layer_get_bounds(window_get_root_layer(window)));
     layer_add_child(window_layer, bitmap_layer_get_layer(idle_bitmap_layer));
     bitmap_layer_set_compositing_mode(idle_bitmap_layer, GCompOpSet);
-    bitmap_layer_set_bitmap(idle_bitmap_layer, idle_bitmap);
+    bitmap_layer_set_bitmap(idle_bitmap_layer, idle_bitmap);*/
 
     anim_bitmap_layer = bitmap_layer_create(window_bounds);
     layer_add_child(window_layer, bitmap_layer_get_layer(anim_bitmap_layer));
@@ -180,8 +193,8 @@ void main_window_destroy() {
     gbitmap_destroy(anim_bitmap);
     bitmap_layer_destroy(anim_bitmap_layer);
 
-        // gbitmap_destroy(idle_bitmap);
-        // bitmap_layer_destroy(idle_bitmap_layer);
+    // gbitmap_destroy(idle_bitmap);
+    // bitmap_layer_destroy(idle_bitmap_layer);
 
     window_destroy(s_window);
 }
